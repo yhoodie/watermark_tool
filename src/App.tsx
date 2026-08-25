@@ -2,36 +2,25 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import IntersectObserver from '@/components/common/IntersectObserver';
 import { Toaster } from '@/components/ui/sonner';
-
-import { routes } from './routes';
-
-// import { AuthProvider } from '@/contexts/AuthContext';
-// import { RouteGuard } from '@/components/common/RouteGuard';
+import AppLayout from '@/components/layouts/AppLayout';
+import EmbedPage from '@/pages/EmbedPage';
+import ExtractPage from '@/pages/ExtractPage';
+import AttackPage from '@/pages/AttackPage';
 
 const App: React.FC = () => {
   return (
     <Router>
-      {/*<AuthProvider>*/}
-      {/*<RouteGuard>*/}
       <IntersectObserver />
-      <div className="flex flex-col min-h-screen">
-        {/*<Header />*/}
-        <main className="flex-grow">
-          <Routes>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              element={route.element}
-            />
-          ))}
-          <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-      </div>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<Navigate to="/embed" replace />} />
+          <Route path="/embed" element={<EmbedPage />} />
+          <Route path="/extract" element={<ExtractPage />} />
+          <Route path="/attack" element={<AttackPage />} />
+          <Route path="*" element={<Navigate to="/embed" replace />} />
+        </Route>
+      </Routes>
       <Toaster />
-      {/*</RouteGuard>*/}
-      {/*</AuthProvider>*/}
     </Router>
   );
 };
