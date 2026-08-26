@@ -17,10 +17,15 @@ function blockCount(w: number, h: number): number {
   return Math.floor(w / 8) * Math.floor(h / 8);
 }
 
-/** 估算图片载体可嵌入的最大负载字节数（按 1 倍冗余保守估算） */
+/** 帧头冗余度：容量充裕时才提高冗余，避免小载体被帧头占满 */
+function headerRedundancy(n: number): number {
+  return Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / (HEADER_BITS * 4))));
+}
+
+/** 估算图片载体可嵌入的最大负载字节数 */
 export function imageCapacityBytes(w: number, h: number): number {
   const n = blockCount(w, h);
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   const dataBits = n - HEADER_BITS * rh;
   return Math.max(0, Math.floor(dataBits / 8) - 12);
 }
@@ -34,7 +39,7 @@ interface Layout {
 }
 
 function buildLayout(n: number, dataBits: number, key?: string): Layout {
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   const rest = n - HEADER_BITS * rh;
   if (rest < dataBits) throw new Error('CAPACITY');
   const rd = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(rest / dataBits)));
@@ -183,7 +188,7 @@ export function extractRawBitsFromImage(
   key?: string,
 ): { frameLen: number; bits: number[] } | null {
   const n = blockCount(img.width, img.height);
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   const headerLayout: Layout = {
     n,
     perm: shuffledIndices(n, permSeed(key)),
@@ -203,7 +208,7 @@ export function extractRawBitsFromImage(
 /** 从 ImageData 提取水印（两阶段：先读帧头，再读数据段） */
 export function extractFromImage(img: ImageData, key?: string): WatermarkPayload {
   const n = blockCount(img.width, img.height);
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   // 阶段一：读取帧头
   const headerLayout: Layout = {
     n,

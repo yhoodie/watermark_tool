@@ -7,14 +7,22 @@ import { HEADER_BITS, decodePayload, encodePayload, parseFrameLength } from './c
 import { bytesToBits, bitsToBytes } from './bits';
 import type { EmbedOptions, WatermarkPayload } from './types';
 
-export const CHUNK = 2048;
+export const CHUNK = 128;
 const MAX_REDUNDANCY = 8;
 
+/** Hann 窗（已按窗均值 0.5 归一化为等效均值增益 1，保证嵌入后块均值精确等于目标值） */
 const HANN = (() => {
   const w = new Float32Array(CHUNK);
-  for (let i = 0; i < CHUNK; i++) w[i] = 0.5 * (1 - Math.cos((2 * Math.PI * i) / (CHUNK - 1)));
+  for (let i = 0; i < CHUNK; i++) {
+    w[i] = 1 - Math.cos((2 * Math.PI * i) / (CHUNK - 1));
+  }
   return w;
 })();
+
+/** 帧头冗余度：容量充裕时才提高冗余，避免小载体被帧头占满 */
+function headerRedundancy(n: number): number {
+  return Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / (HEADER_BITS * 4))));
+}
 
 /** 解码音频文件为单声道 Float32 PCM */
 export async function decodeAudioFile(file: Blob): Promise<{ samples: Float32Array; sampleRate: number }> {
@@ -36,7 +44,7 @@ export async function decodeAudioFile(file: Blob): Promise<{ samples: Float32Arr
 /** 估算音频载体最大负载字节数 */
 export function audioCapacityBytes(sampleCount: number): number {
   const n = Math.floor(sampleCount / CHUNK);
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   const dataBits = n - HEADER_BITS * rh;
   return Math.max(0, Math.floor(dataBits / 8) - 12);
 }
@@ -50,7 +58,7 @@ interface AudioLayout {
 }
 
 function buildLayout(n: number, dataBits: number, key?: string): AudioLayout {
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   const rest = n - HEADER_BITS * rh;
   if (rest < dataBits) throw new Error('CAPACITY');
   const rd = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(rest / dataBits)));
@@ -124,7 +132,7 @@ function readBits(samples: Float32Array, layout: AudioLayout, bitCount: number):
 /** 从 PCM 提取水印 */
 export function extractFromAudio(samples: Float32Array, key?: string): WatermarkPayload {
   const n = Math.floor(samples.length / CHUNK);
-  const rh = Math.max(1, Math.min(MAX_REDUNDANCY, Math.floor(n / HEADER_BITS)));
+  const rh = headerRedundancy(n);
   const headerLayout: AudioLayout = { n, perm: shuffledIndices(n, permSeed(key)), rh, rd: 1, dataBits: 0 };
   const headerBytes = bitsToBytes(readBits(samples, headerLayout, HEADER_BITS));
   const frameLen = parseFrameLength(headerBytes);

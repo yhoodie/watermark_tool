@@ -22,16 +22,16 @@ const CODE_TYPE: WatermarkType[] = ['text', 'image', 'audio', 'video'];
 export const HEADER_BYTES = 12;
 export const HEADER_BITS = HEADER_BYTES * 8;
 
-/** 将水印负载编码为待嵌入的字节序列；提供 key 时对数据段加密 */
+/** 将水印负载编码为待嵌入的字节序列；提供 key 时对数据段加密。CRC 始终针对明文计算 */
 export function encodePayload(payload: WatermarkPayload, key?: string): Uint8Array {
   const encrypted = !!key;
-  const body = encrypted ? xorCipher(payload.data, key as string) : payload.data;
   const header = concatBytes(
     MAGIC,
     new Uint8Array([TYPE_CODE[payload.type], encrypted ? 1 : 0]),
-    u32ToBytes(body.length),
+    u32ToBytes(payload.data.length),
   );
-  const crc = u16ToBytes(crc16(concatBytes(header.subarray(4), body)));
+  const crc = u16ToBytes(crc16(concatBytes(header.subarray(4), payload.data)));
+  const body = encrypted ? xorCipher(payload.data, key as string) : payload.data;
   return concatBytes(header, crc, body);
 }
 
@@ -66,21 +66,23 @@ export function decodePayload(frame: Uint8Array, key?: string): DecodedFrame {
     throw new Error('水印帧头损坏，无法解析');
   }
   const crcExpected = (frame[10] << 8) | frame[11];
-  let body = frame.subarray(HEADER_BYTES, HEADER_BYTES + len);
-  const crcActual = crc16(concatBytes(frame.subarray(4, 10), body));
-  if (crcActual === crcExpected) {
-    if (encrypted) throw new Error('水印已加密，请输入正确密钥后重试');
+  const headPart = frame.subarray(4, 10);
+  const bodyRaw = frame.subarray(HEADER_BYTES, HEADER_BYTES + len);
+  if (!encrypted) {
+    if (crc16(concatBytes(headPart, bodyRaw)) !== crcExpected) {
+      throw new Error('水印数据校验失败（已损坏）');
+    }
     return {
-      payload: { type: CODE_TYPE[typeCode], data: new Uint8Array(body) },
+      payload: { type: CODE_TYPE[typeCode], data: new Uint8Array(bodyRaw) },
       encrypted: false,
       frameBytes: HEADER_BYTES + len,
     };
   }
-  if (!encrypted) throw new Error('水印数据校验失败（已损坏）');
   if (!key) throw new Error('水印已加密，请输入密钥');
-  body = xorCipher(new Uint8Array(body), key);
-  const crcDec = crc16(concatBytes(frame.subarray(4, 10), body));
-  if (crcDec !== crcExpected) throw new Error('密钥错误或水印数据已损坏');
+  const body = xorCipher(new Uint8Array(bodyRaw), key);
+  if (crc16(concatBytes(headPart, body)) !== crcExpected) {
+    throw new Error('密钥错误或水印数据已损坏');
+  }
   return {
     payload: { type: CODE_TYPE[typeCode], data: body },
     encrypted: true,

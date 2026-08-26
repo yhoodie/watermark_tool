@@ -1,0 +1,647 @@
+
+<action>
+**MessageAction** (source=EventSource.AGENT)
+CONTENT: 好的，正在为你创建数字水印嵌入与提取系统，请稍候～
+</action>
+<action>
+SubagentAction(subagent_name='PRDAgent', instruction='做一个数字水印嵌入与提取系统（Web网页应用）。核心需求如下：\n1. 载体类型：图片、音频、视频；水印类型：文字、图片、音频、视频。\n2. 支持批量处理（批量嵌入/提取）。\n3. 支持水印强度调节：设定可调整阈值，可使用水印分存技术（如分块/扩频嵌入等思路）。\n4. 支持水印加解密：此功能可选，用户不输入密钥则不启用加密。\n5. 共三个界面：①水印嵌入界面；②水印提取界面；③攻击模拟界面（模拟格式转换、裁剪、噪声等攻击手段，用于验证水印鲁棒性）。\n技术实现提示：纯前端实现（浏览器端处理，无需后端），图片水印可用Canvas实现DCT/LSB等算法，音频可用Web Audio API处理，视频可逐帧处理。请生成完整PRD。', input={'lang_env': 'Chinese', 'lang_user': 'Chinese', 'prd': '', 'app_type': '', 'has_research': False, 'is_generated': False, 'metadata': {'a2a': [{'kind': 'text', 'metadata': None, 'text': '做一个数字水印嵌入与提取系统。载体可以是图片、音频、视频；水印可以是文字、图片、音频、视频。需要支持批量处理和水印强度调节（设定可调整阈值，可使用水印分存技术等）。需要支持水印加解密，此功能可选，不输入密钥则不使用此功能。三个界面，一个嵌入，一个提取，还有一个界面模拟攻击方法，如格式转换、裁剪、噪声等。'}], 'defaultAgent': 'AdaProCodeactAgent', 'agentConfig': {}, 'runtime': 'miaoda', 'timezone': 'Asia/Shanghai', 'lang': 'zh-CN', 'queryMode': 'deep_mode', 'clientSendTs': 1787693047642, 'appStatus': 'not_generate', 'hasAgent': False, 'cur_version_last_event_id': -1, 'supportSupabase': 'true', 'subscription_plan': 'pro', 'senderUserId': 'user-dyjfqxicffgg', 'is_user_input': True, 'firstMessage': '做一个数字水印嵌入与提取系统。载体可以是图片、音频、视频；水印可以是文字、图片、音频、视频。需要支持批量处理和水印强度调节（设定可调整阈值，可使用水印分存技术等）。需要支持水印加解密，此功能可选，不输入密钥则不使用此功能。三个界面，一个嵌入，一个提取，还有一个界面模拟攻击方法，如格式转换、裁剪、噪声等。'}, 'generate_app_requested': False}, context_strategy='clean', context_agent_names=[], thought='我来为您开发一个数字水印嵌入与提取系统。首先调用 PRDAgent 生成需求文档。\nDelegating to PRDAgent', action=<ActionType.SUBAGENT: 'subagent'>)
+</action>
+<observation>
+SubagentObservation(content="Subagent 'PRDAgent' (conv-dysgncsaheyo/subagent-PRDAgent-ID11) successfully completed. Summary: , Output: {'actions': [{'type': 'button', 'label': '生成应用', 'value': '生成应用', 'event': {'name': 'generateApp'}}], 'appInfo': {'requirementType': 'Web'}, 'appType': 'Web', 'prd': '# 需求文档\\n\\n## 1. 应用概述\\n\\n### 1.1 应用名称\\n数字水印嵌入与提取系统\\n\\n### 1.2 应用描述\\n本系统为Web网页应用，用于在图片、音频、视频等载体中嵌入数字水印，并支持水印提取与鲁棒性验证。系统支持批量处理、水印强度调节、可选加密功能，以及攻击模拟测试。\\n\\n---\\n\\n## 2. 用户与使用场景\\n\\n### 2.1 目标用户\\n- 需要对数字内容进行版权保护的创作者\\n- 需要验证数字水印技术鲁棒性的研究人员\\n- 需要批量处理数字水印的内容管理人员\\n\\n### 2.2 核心使用场景\\n- 场景1：用户上传图片/音频/视频文件，嵌入文字或图片水印，下载处理后的文件\\n- 场景2：用户上传已嵌入水印的文件，提取其中的水印内容\\n- 场景3：用户对已嵌入水印的文件进行攻击模拟（如格式转换、裁剪、噪声），验证水印是否仍可提取\\n\\n---\\n\\n## 3. 页面结构与功能说明\\n\\n### 3.1 页面结构\\n\\n```\\n数字水印嵌入与提取系统\\n├── 水印嵌入界面\\n├── 水印提取界面\\n└── 攻击模拟界面\\n```\\n\\n### 3.2 功能说明\\n\\n#### 3.2.1 水印嵌入界面\\n\\n**3.2.1.1 载体文件上传**\\n  - 支持上传图片、音频、视频文件\\n  - 支持批量上传多个文件\\n\\n**3.2.1.2 水印内容选择**\\n  - 支持选择水印类型：文字、图片、音频、视频\\n  - 文字水印：用户输入文字内容\\n  - 图片水印：用户上传图片文件\\n  - 音频水印：用户上传音频文件\\n  - 视频水印：用户上传视频文件\\n\\n**3.2.1.3 水印强度调节**\\n  - 提供强度调节控件，用户可设定嵌入强度阈值\\n  - 说明：强度越高，水印越明显但鲁棒性越强；强度越低，水印越隐蔽但鲁棒性越弱\\n\\n**3.2.1.4 水印加密（可选）**\\n  - 提供密钥输入框，用户可选择是否输入密钥\\n  - 若用户输入密钥，则对水印进行加密处理\\n  - 若用户不输入密钥，则不启用加密功能\\n\\n**3.2.1.5 嵌入处理与下载**\\n  - 用户点击「开始嵌入」按钮，系统对上传的载体文件批量嵌入水印\\n  - 处理完成后，用户可下载已嵌入水印的文件\\n  - 批量处理时，支持打包下载所有处理后的文件\\n\\n#### 3.2.2 水印提取界面\\n\\n**3.2.2.1 载体文件上传**\\n  - 支持上传已嵌入水印的图片、音频、视频文件\\n  - 支持批量上传多个文件\\n\\n**3.2.2.2 水印解密（可选）**\\n  - 提供密钥输入框，用户可选择是否输入密钥\\n  - 若水印嵌入时使用了加密，用户需输入正确密钥才能提取水印\\n  - 若水印嵌入时未加密，用户无需输入密钥\\n\\n**3.2.2.3 提取处理与结果展示**\\n  - 用户点击「开始提取」按钮，系统从上传的文件中提取水印\\n  - 提取完成后，展示水印内容（文字、图片、音频、视频）\\n  - 批量处理时，逐一展示每个文件的提取结果\\n\\n#### 3.2.3 攻击模拟界面\\n\\n**3.2.3.1 载体文件上传**\\n  - 支持上传已嵌入水印的图片、音频、视频文件\\n  - 支持批量上传多个文件\\n\\n**3.2.3.2 攻击类型选择**\\n  - 提供攻击类型选项，用户可选择一种或多种攻击方式：\\n    - 格式转换（如JPG转PNG、MP3转WAV等）\\n    - 裁剪（对图片或视频进行裁剪）\\n    - 噪声添加（添加高斯噪声、椒盐噪声等）\\n    - 压缩（降低文件质量或码率）\\n    - 旋转/缩放（对图片或视频进行旋转或缩放）\\n\\n**3.2.3.3 攻击参数设置**\\n  - 根据选择的攻击类型，提供对应参数设置控件\\n  - 示例：裁剪比例、噪声强度、压缩质量等\\n\\n**3.2.3.4 攻击处理与水印验证**\\n  - 用户点击「开始攻击」按钮，系统对上传的文件执行选定的攻击操作\\n  - 攻击完成后，自动尝试从攻击后的文件中提取水印\\n  - 展示攻击后的文件与提取结果，用户可判断水印是否仍可提取\\n  - 批量处理时，逐一展示每个文件的攻击结果与水印提取结果\\n\\n---\\n\\n## 4. 业务规则与逻辑\\n\\n### 4.1 载体与水印类型匹配规则\\n- 图片载体：可嵌入文字、图片水印\\n- 音频载体：可嵌入文字、音频水印\\n- 视频载体：可嵌入文字、图片、音频、视频水印\\n\\n### 4.2 批量处理规则\\n- 用户上传多个文件时，系统按顺序逐一处理\\n- 每个文件处理完成后，更新处理进度\\n- 所有文件处理完成后，提供批量下载或逐一下载选项\\n\\n### 4.3 水印强度调节规则\\n- 强度阈值范围：1-10（1为最弱，10为最强）\\n- 用户可通过滑块或输入框设定强度值\\n- 强度值影响水印嵌入的深度与鲁棒性\\n\\n### 4.4 水印加密规则\\n- 用户输入密钥时，系统对水印内容进行加密后再嵌入\\n- 提取水印时，若水印已加密，用户需输入正确密钥才能解密并提取\\n- 密钥错误时，提取失败并提示用户\\n\\n### 4.5 攻击模拟规则\\n- 用户可选择单一攻击或组合攻击\\n- 攻击完成后，系统自动尝试提取水印，验证水印鲁棒性\\n- 若水印仍可提取，说明水印具备对该攻击的鲁棒性\\n\\n---\\n\\n## 5. 异常与边界情况\\n\\n| 场景 | 处理方式 |\\n|------|----------|\\n| 用户上传不支持的文件格式 | 提示用户文件格式不支持，列出支持的格式 |\\n| 用户未选择水印类型或未上传水印内容 | 提示用户完成必填项 |\\n| 用户未上传载体文件 | 提示用户上传载体文件 |\\n| 水印提取时密钥错误 | 提示用户密钥错误，无法提取水印 |\\n| 水印提取失败（文件未嵌入水印或水印已损坏） | 提示用户未检测到水印或水印已损坏 |\\n| 攻击模拟后水印无法提取 | 展示提取失败结果，说明水印未通过该攻击测试 |\\n| 批量处理时部分文件处理失败 | 标记失败文件，提示用户查看失败原因，其他文件正常处理 |\\n\\n---\\n\\n## 6. 验收标准\\n\\n1. 用户打开水印嵌入界面，上传一张图片，选择文字水印类型并输入文字内容，设定水印强度为5，点击「开始嵌入」，下载已嵌入水印的图片\\n2. 用户打开水印提取界面，上传刚才下载的已嵌入水印的图片，点击「开始提取」，成功提取并展示嵌入的文字内容\\n3. 用户打开攻击模拟界面，上传已嵌入水印的图片，选择「噪声添加」攻击类型，设定噪声强度为中等，点击「开始攻击」，系统执行攻击并自动提取水印，展示攻击后的图片与水印提取结果\\n\\n---\\n\\n## 7. 本期不实现功能\\n\\n- 用户账号体系与登录注册功能\\n- 历史记录保存与管理功能\\n- 水印嵌入/提取结果的云端存储功能\\n- 水印模板库与预设水印功能\\n- 水印位置自定义功能（如指定水印嵌入位置）\\n- 水印可见性预览功能（嵌入前预览水印效果）\\n- 多语言支持\\n- 移动端适配优化\\n- 文件大小与数量限制提示\\n- 水印嵌入/提取的详细日志记录功能', 'intent_query': '做一个数字水印嵌入与提取系统（Web网页应用）。核心需求如下：\\n1. 载体类型：图片、音频、视频；水印类型：文字、图片、音频、视频。\\n2. 支持批量处理（批量嵌入/提取）。\\n3. 支持水印强度调节：设定可调整阈值，可使用水印分存技术（如分块/扩频嵌入等思路）。\\n4. 支持水印加解密：此功能可选，用户不输入密钥则不启用加密。\\n5. 共三个界面：①水印嵌入界面；②水印提取界面；③攻击模拟界面（模拟格式转换、裁剪、噪声等攻击手段，用于验证水印鲁棒性）。\\n技术实现提示：纯前端实现（浏览器端处理，无需后端），图片水印可用Canvas实现DCT/LSB等算法，音频可用Web Audio API处理，视频可逐帧处理。请生成完整PRD。', 'type': 'prdAgentAction', 'app_name': '数字水印嵌入与提取系统', 'app_desc': '本系统为Web网页应用，用于在图片、音频、视频等载体中嵌入数字水印，并支持水印提取与鲁棒性验证。系统支持批量处理、水印强度调节、可选加密功能，以及攻击模拟测试。', 'status': 'success', 'is_generated': False, 'summary': ''}", subagent_id='conv-dysgncsaheyo/subagent-PRDAgent-ID11', subagent_name='PRDAgent', status='completed', summary='', files_changed=[], error=None, input={'lang_env': 'Chinese', 'lang_user': 'Chinese', 'prd': '', 'app_type': '', 'has_research': False, 'is_generated': False, 'metadata': {'a2a': [{'kind': 'text', 'metadata': None, 'text': '做一个数字水印嵌入与提取系统。载体可以是图片、音频、视频；水印可以是文字、图片、音频、视频。需要支持批量处理和水印强度调节（设定可调整阈值，可使用水印分存技术等）。需要支持水印加解密，此功能可选，不输入密钥则不使用此功能。三个界面，一个嵌入，一个提取，还有一个界面模拟攻击方法，如格式转换、裁剪、噪声等。'}], 'defaultAgent': 'AdaProCodeactAgent', 'agentConfig': {}, 'runtime': 'miaoda', 'timezone': 'Asia/Shanghai', 'lang': 'zh-CN', 'queryMode': 'deep_mode', 'clientSendTs': 1787693047642, 'appStatus': 'not_generate', 'hasAgent': False, 'cur_version_last_event_id': -1, 'supportSupabase': 'true', 'subscription_plan': 'pro', 'senderUserId': 'user-dyjfqxicffgg', 'is_user_input': True, 'firstMessage': '做一个数字水印嵌入与提取系统。载体可以是图片、音频、视频；水印可以是文字、图片、音频、视频。需要支持批量处理和水印强度调节（设定可调整阈值，可使用水印分存技术等）。需要支持水印加解密，此功能可选，不输入密钥则不使用此功能。三个界面，一个嵌入，一个提取，还有一个界面模拟攻击方法，如格式转换、裁剪、噪声等。'}, 'generate_app_requested': False}, output={'actions': [{'type': 'button', 'label': '生成应用', 'value': '生成应用', 'event': {'name': 'generateApp'}}], 'appInfo': {'requirementType': 'Web'}, 'appType': 'Web', 'prd': '# 需求文档\n\n## 1. 应用概述\n\n### 1.1 应用名称\n数字水印嵌入与提取系统\n\n### 1.2 应用描述\n本系统为Web网页应用，用于在图片、音频、视频等载体中嵌入数字水印，并支持水印提取与鲁棒性验证。系统支持批量处理、水印强度调节、可选加密功能，以及攻击模拟测试。\n\n---\n\n## 2. 用户与使用场景\n\n### 2.1 目标用户\n- 需要对数字内容进行版权保护的创作者\n- 需要验证数字水印技术鲁棒性的研究人员\n- 需要批量处理数字水印的内容管理人员\n\n### 2.2 核心使用场景\n- 场景1：用户上传图片/音频/视频文件，嵌入文字或图片水印，下载处理后的文件\n- 场景2：用户上传已嵌入水印的文件，提取其中的水印内容\n- 场景3：用户对已嵌入水印的文件进行攻击模拟（如格式转换、裁剪、噪声），验证水印是否仍可提取\n\n---\n\n## 3. 页面结构与功能说明\n\n### 3.1 页面结构\n\n```\n数字水印嵌入与提取系统\n├── 水印嵌入界面\n├── 水印提取界面\n└── 攻击模拟界面\n```\n\n### 3.2 功能说明\n\n#### 3.2.1 水印嵌入界面\n\n**3.2.1.1 载体文件上传**\n  - 支持上传图片、音频、视频文件\n  - 支持批量上传多个文件\n\n**3.2.1.2 水印内容选择**\n  - 支持选择水印类型：文字、图片、音频、视频\n  - 文字水印：用户输入文字内容\n  - 图片水印：用户上传图片文件\n  - 音频水印：用户上传音频文件\n  - 视频水印：用户上传视频文件\n\n**3.2.1.3 水印强度调节**\n  - 提供强度调节控件，用户可设定嵌入强度阈值\n  - 说明：强度越高，水印越明显但鲁棒性越强；强度越低，水印越隐蔽但鲁棒性越弱\n\n**3.2.1.4 水印加密（可选）**\n  - 提供密钥输入框，用户可选择是否输入密钥\n  - 若用户输入密钥，则对水印进行加密处理\n  - 若用户不输入密钥，则不启用加密功能\n\n**3.2.1.5 嵌入处理与下载**\n  - 用户点击「开始嵌入」按钮，系统对上传的载体文件批量嵌入水印\n  - 处理完成后，用户可下载已嵌入水印的文件\n  - 批量处理时，支持打包下载所有处理后的文件\n\n#### 3.2.2 水印提取界面\n\n**3.2.2.1 载体文件上传**\n  - 支持上传已嵌入水印的图片、音频、视频文件\n  - 支持批量上传多个文件\n\n**3.2.2.2 水印解密（可选）**\n  - 提供密钥输入框，用户可选择是否输入密钥\n  - 若水印嵌入时使用了加密，用户需输入正确密钥才能提取水印\n  - 若水印嵌入时未加密，用户无需输入密钥\n\n**3.2.2.3 提取处理与结果展示**\n  - 用户点击「开始提取」按钮，系统从上传的文件中提取水印\n  - 提取完成后，展示水印内容（文字、图片、音频、视频）\n  - 批量处理时，逐一展示每个文件的提取结果\n\n#### 3.2.3 攻击模拟界面\n\n**3.2.3.1 载体文件上传**\n  - 支持上传已嵌入水印的图片、音频、视频文件\n  - 支持批量上传多个文件\n\n**3.2.3.2 攻击类型选择**\n  - 提供攻击类型选项，用户可选择一种或多种攻击方式：\n    - 格式转换（如JPG转PNG、MP3转WAV等）\n    - 裁剪（对图片或视频进行裁剪）\n    - 噪声添加（添加高斯噪声、椒盐噪声等）\n    - 压缩（降低文件质量或码率）\n    - 旋转/缩放（对图片或视频进行旋转或缩放）\n\n**3.2.3.3 攻击参数设置**\n  - 根据选择的攻击类型，提供对应参数设置控件\n  - 示例：裁剪比例、噪声强度、压缩质量等\n\n**3.2.3.4 攻击处理与水印验证**\n  - 用户点击「开始攻击」按钮，系统对上传的文件执行选定的攻击操作\n  - 攻击完成后，自动尝试从攻击后的文件中提取水印\n  - 展示攻击后的文件与提取结果，用户可判断水印是否仍可提取\n  - 批量处理时，逐一展示每个文件的攻击结果与水印提取结果\n\n---\n\n## 4. 业务规则与逻辑\n\n### 4.1 载体与水印类型匹配规则\n- 图片载体：可嵌入文字、图片水印\n- 音频载体：可嵌入文字、音频水印\n- 视频载体：可嵌入文字、图片、音频、视频水印\n\n### 4.2 批量处理规则\n- 用户上传多个文件时，系统按顺序逐一处理\n- 每个文件处理完成后，更新处理进度\n- 所有文件处理完成后，提供批量下载或逐一下载选项\n\n### 4.3 水印强度调节规则\n- 强度阈值范围：1-10（1为最弱，10为最强）\n- 用户可通过滑块或输入框设定强度值\n- 强度值影响水印嵌入的深度与鲁棒性\n\n### 4.4 水印加密规则\n- 用户输入密钥时，系统对水印内容进行加密后再嵌入\n- 提取水印时，若水印已加密，用户需输入正确密钥才能解密并提取\n- 密钥错误时，提取失败并提示用户\n\n### 4.5 攻击模拟规则\n- 用户可选择单一攻击或组合攻击\n- 攻击完成后，系统自动尝试提取水印，验证水印鲁棒性\n- 若水印仍可提取，说明水印具备对该攻击的鲁棒性\n\n---\n\n## 5. 异常与边界情况\n\n| 场景 | 处理方式 |\n|------|----------|\n| 用户上传不支持的文件格式 | 提示用户文件格式不支持，列出支持的格式 |\n| 用户未选择水印类型或未上传水印内容 | 提示用户完成必填项 |\n| 用户未上传载体文件 | 提示用户上传载体文件 |\n| 水印提取时密钥错误 | 提示用户密钥错误，无法提取水印 |\n| 水印提取失败（文件未嵌入水印或水印已损坏） | 提示用户未检测到水印或水印已损坏 |\n| 攻击模拟后水印无法提取 | 展示提取失败结果，说明水印未通过该攻击测试 |\n| 批量处理时部分文件处理失败 | 标记失败文件，提示用户查看失败原因，其他文件正常处理 |\n\n---\n\n## 6. 验收标准\n\n1. 用户打开水印嵌入界面，上传一张图片，选择文字水印类型并输入文字内容，设定水印强度为5，点击「开始嵌入」，下载已嵌入水印的图片\n2. 用户打开水印提取界面，上传刚才下载的已嵌入水印的图片，点击「开始提取」，成功提取并展示嵌入的文字内容\n3. 用户打开攻击模拟界面，上传已嵌入水印的图片，选择「噪声添加」攻击类型，设定噪声强度为中等，点击「开始攻击」，系统执行攻击并自动提取水印，展示攻击后的图片与水印提取结果\n\n---\n\n## 7. 本期不实现功能\n\n- 用户账号体系与登录注册功能\n- 历史记录保存与管理功能\n- 水印嵌入/提取结果的云端存储功能\n- 水印模板库与预设水印功能\n- 水印位置自定义功能（如指定水印嵌入位置）\n- 水印可见性预览功能（嵌入前预览水印效果）\n- 多语言支持\n- 移动端适配优化\n- 文件大小与数量限制提示\n- 水印嵌入/提取的详细日志记录功能', 'intent_query': '做一个数字水印嵌入与提取系统（Web网页应用）。核心需求如下：\n1. 载体类型：图片、音频、视频；水印类型：文字、图片、音频、视频。\n2. 支持批量处理（批量嵌入/提取）。\n3. 支持水印强度调节：设定可调整阈值，可使用水印分存技术（如分块/扩频嵌入等思路）。\n4. 支持水印加解密：此功能可选，用户不输入密钥则不启用加密。\n5. 共三个界面：①水印嵌入界面；②水印提取界面；③攻击模拟界面（模拟格式转换、裁剪、噪声等攻击手段，用于验证水印鲁棒性）。\n技术实现提示：纯前端实现（浏览器端处理，无需后端），图片水印可用Canvas实现DCT/LSB等算法，音频可用Web Audio API处理，视频可逐帧处理。请生成完整PRD。', 'type': 'prdAgentAction', 'app_name': '数字水印嵌入与提取系统', 'app_desc': '本系统为Web网页应用，用于在图片、音频、视频等载体中嵌入数字水印，并支持水印提取与鲁棒性验证。系统支持批量处理、水印强度调节、可选加密功能，以及攻击模拟测试。', 'status': 'success', 'is_generated': False, 'summary': ''}, observation=<ObservationType.SUBAGENT: 'subagent'>)
+</observation>
+<action>
+**MessageAction** (source=EventSource.AGENT)
+CONTENT: 
+</action>
+<action>
+**MessageAction** (source=EventSource.USER)
+CONTENT: 生成应用
+</action>
+<action>
+**RecallAction**
+QUERY: 生成应用
+</action>
+<action>
+**MessageAction** (source=EventSource.AGENT)
+CONTENT: 我将根据你的想法创建一个网页，它包含多个页面和功能，让我先梳理整体实现方案。
+</action>
+<action>
+**MCPAction**
+NAME: generate_start
+ARGUMENTS: {'appId': 'app-dysgncsaheyp', 'userId': 'user-dyjfqxicffgg', 'requirementType': 'Web', 'hasAgent': False, 'hasCodeTemplate': 'NONE', 'codeTemplateZipUrl': '', 'isBoilerplate': False, 'isFirstGeneration': True, 'use_supabase': False}
+</action>
+<observation>
+**MCPObservation**
+NAME: generate_start
+RESULTS: {"code":0,"message":"success"}
+</observation>
+<action>
+SkillAction(skill='visual-design-director', args='', thought='PRD 已完成。接下来调用 UI 设计技能生成设计文档。', plugin_id=17508, action=<ActionType.SKILL: 'skill'>, security_risk=None)
+</action>
+<observation>
+SkillObservation(content='Base directory for this skill: /workspace/app-dysgncsaheyp/.skills/visual-design-director\n\n# 前端设计指南\n\n**你是设计师**，在写代码前产出 DESIGN.md，作为唯一设计参考。\n\n## 流程（Step 1→4，前序命中即跳过后续）\n\n**类型来源**：读取 PRDAgent `requirementType`，禁推断\n\n### Step 1 — 用户标签（命名模板，精确匹配）\n\nuser message 含 `<AESTHETIC_TEMPLATE>` 时，取 `template_name:` 传 `--template-name`（自动/auto/空 → Step 2）：\n\n```bash\npython3 <skill_dir>/scripts/theme_search.py \\\n  --template-name "<template_name 值>" \\\n  --app-type "<requirementType>" \\\n  --output "/workspace/{app_id}/docs/DESIGN.md"\n```\n\n- 退出码 **0**：命中，DESIGN.md 已写盘 → Step 4；退出码 **1** 或无标签 → Step 2\n\n### Step 2 — 参考图检测\n\nPRD 含图片时区分：\n- **参考图**（风格参考 / UI 原型）：忠实复刻参考图、**不套设计哲学/模板**，不检索，写盘后**结束**；原型图还原 logo/字体/排版/配色，仅补 PRD 要求；风格图提取配色/字体气质/材质；禁加图中没有的视觉元素\n- **插图**（logo/产品图/内容配图）：不驱动设计，可取品牌色，继续 Step 3\n- **两者共存**：参考图驱动，logo 补品牌色\n\n无参考图 → Step 3\n\n### Step 3 — 检索候选 / 主题匹配（命中自动写盘）\n\n基于"**设计哲学**"段判断方向，提取 3-8 个英文关键词：`<美学方向×2-3> <行业实体×1-2> <产品类型×1>`；行业用领域实体（finance/healthcare…），禁具体业务实体\n\n```bash\npython3 <skill_dir>/scripts/search.py "<英文关键词 3-8 个>" \\\n  --design-system \\\n  --app-type "<requirementType>" \\\n  --lang "<lang>" \\\n  --output "/workspace/{app_id}/docs/DESIGN.md" \\\n  --theme-query "<用户语言视觉主题短语 ≤20字>"\n```\n\n**search.py 只调用一次**：未命中不换词重试\n\n- **`lang`**：取 `<LANGUAGE_SETTINGS>`；Body 须覆盖对应语言字符集\n- **`--theme-query`**：必填，用用户语言写 ≤20 字视觉主题短语；只描述视觉风格/主题，不写完整需求\n\n脚本结果：含 `## 已命中模板` → DESIGN.md 已写盘；否则输出 3+3+3 候选 + Scenario + Anti-Slop\n\n### Step 4 — 写入 DESIGN.md\n\n`/workspace/{app_id}/docs/DESIGN.md` 是唯一有效输出；写盘后直接开发\n- **命中**：脚本输出即当前 DESIGN.md，**无需 read/view/规范化/改格式**；PRD 有冲突才局部 str_replace，禁整体重写\n- **未命中**：目录已自动创建，直接写/覆盖 DESIGN.md；Top-3 无优先级，按 PRD 选；配色可自定 hex，字体优先候选；不看 PRD/候选也能写出的 section 必须重写\n\n---\n\n## 设计哲学\n\n**先定一个具体 Vibe**，Color / Typography / Visual / Animation 都从它推导。\n\n**Vibe 必须是具体视觉来源**（流派/文化/大师/物件/材质），而非价值或效果词——"Brutalism""risograph" 是来源，"modern""clean"不是。\n\n下面四类只是**启发示例、不是选项**——按 query 的行业/受众/情绪发散一个贴切的具体来源：\n- **时代/流派**：Memphis / Brutalism / Y2K / Editorial Magazine / Cyberpunk / Art Deco / Bauhaus / Glassmorphism / Neumorphism ...\n- **文化/地域**：Italian luxury / Hong Kong 90s nostalgia / Soviet constructivism / Brazilian tropical modernism / Scandinavian / Chinese ink wash ...\n- **大师/工作室**：Paula Scher supergraphics / Otl Aicher pictograms / Ikko Tanaka posters / Dieter Rams functionalism / David Carson deconstruction / Field.io motion ...\n- **媒介/质感**：paper-cut / ink / grain / risograph / letterpress / collage / blueprint / metal / ceramic / glass ...\n\n**跨类组合出设计感**：用户未指定方向时，跨两类拼出一个兼容 query 调性的 Vibe（文化 × 媒介、大师 × 流派、流派 × 质感……）；创意/品牌/文化类尤其要大胆。创新只在视觉手法，不改用户意图。\n\n**高级感来自细节**：以字体比例、材质、留白节奏、图像处理与克制对比体现；避免大色块、大渐变、毛玻璃、通用阴影。\n\n**功能型/工具型应用**可以克制低调、不必强套大胆流派，但仍要落到一个具体来源，并写出至少一个可编码的视觉签名。\n\n---\n\n## DESIGN.md 模板\n\nVibe 已根据设计哲学确定，本模板只约束格式、不替代设计判断\n命中模板、参考图驱动无需遵循本节结构\n\n严格按下方结构写，≤ 500 字，只输出标题和 `- ` bullet；`[…]` 是约束，禁止输出\n输出语言遵循 `lang_user`；结构键、hex、字体名、url、Vibe 名保持英文\n禁 CSS class / px / rem / 框架代码；除 Animation 可写 ms/缓动外，禁数值化间距；后文只引用角色名，不复述前文\n\n```markdown\n## Vibe\n- [具体美学方向]\n\n## Color\n- Primary: [hex]\n- On Primary: [hex]\n- Accent: [hex]\n- On Accent: [hex]\n- Background: [hex]\n- Foreground: [hex]\n- Muted: [hex]\n- Border: [hex]\n- Secondary: [hex] (optional)\n[色彩规则：\n- 角色：只列上方角色，禁 Card/Sidebar/明暗双份 token（代码层派生）；Secondary 可选(主色深浅,按需)。\n- 对比：Primary/On、Accent/On ≥ 4.5:1（中饱和配白不足→近黑 #0F172A）；卡面/边框 vs 背景 ≥ 3:1。\n- 质量：Primary/Accent 取 S≥30% B≥35%（避脏灰）；Primary 与 Accent 需明显色相差。\n- 背景：大面积区（页面/卡片/上传/操作区）一律中性色，禁稀释变体；Primary/Accent 禁大色块铺底（操作区无例外），只落小面积（按钮/图标/激活态/边框）。\n- 按钮：次操作 Muted 底+Foreground 字；浅底禁白底细描边]\n\n## Typography\n- Heading: [字体名] (family: [font-family值], weight: [字重], url: [url])\n- Body: [字体名] (family: [font-family值], weight: [字重], url: [url])\n[标题与正文字体类别要有对比（跨族或字号差 ≥ 1.5 倍）；display/handwriting/pixel 不做 Body。\n候选标注 [heading]/[body]/[both]：Heading 只选 heading 或 both；Body 只选 body 或 both。\n检索驱动：url = `font_prefix + file`（仅 `{weight}` 占位符用 w= 字重替换，`[wght]` 等保留）；weight 只取 w= 列出的值；候选不合适可用 Google Fonts；中/日文 Body 必须支持对应字符（language 含简体/繁体/日文），纯西文字体仅用于拉丁标题]\n\n## Visual Language\n- 核心视觉签名：[1 个该 Vibe 来源独有的可编码手法]（颜色/形状/纹理/材质/光影）；不能是圆角卡片/细描边/通用投影/大色块/渐变等通用模式\n- 材质与深度：[阴影/叠层/背景处理]\n- 容器与按钮：[卡片/分割/表面 + 填充/描边/形状/反馈]\n- 布局节奏：[强调色分配、留白与密集交替]\n[约束：只保留与 Vibe 同源的静态视觉；候选 DNA 不符合则弃用；场景布局并入对应条目]\n\n## Animation\n按需选写，仅列应用实际涉及的动效类型：\n- 入场：[元素+动作+时序]\n- 交互：[方向+强度]\n- 滚动/过渡：[触发方式+运动]\n[约束：强度参考 Scenario Motion_Baseline，无 Scenario 时默认 moderate；按 Animation_Constraint 过滤，禁写纯氛围词]\n\n## Forbidden\n- [基于方向从 Anti-Slop 规则中选取相关禁止事项]\n[约束：不多于3条，只写会破坏当前 Vibe 或页面体验的约束项]\n\n## Additional Notes\n- 所有用户可见文案遵循用户语言偏好（通常为中文）\n- Web 登录页（PRD 明确提及时）：布局（分屏/全幅背景/插画叠层择一），禁止纯白底+孤立表单\n- [其他实现注意事项；无则省略。不要复述 Color / Visual Language / Animation]\n```', observation=<ObservationType.SKILL: 'skill'>, skill='visual-design-director', success=True, data={'object_storage_path': 'skill-online:prod/miaoda_skills/prompts/system/visual-design-director/'})
+</observation>
+<action>
+**CmdRunAction (source=EventSource.AGENT, is_input=False)**
+COMMAND:
+python3 /workspace/app-dysgncsaheyp/.skills/visual-design-director/scripts/search.py "technical tool blueprint engineering data security cipher" --design-system --app-type "Web" --lang "zh" --output "/workspace/app-dysgncsaheyp/docs/DESIGN.md" --theme-query "暗色工程蓝图风数字安全工具"
+</action>
+<observation>
+**CmdOutputObservation (source=EventSource.AGENT, exit code=0, metadata={
+  "exit_code": 0,
+  "pid": -1,
+  "username": null,
+  "hostname": null,
+  "working_dir": "/workspace",
+  "py_interpreter_path": null,
+  "prefix": "",
+  "suffix": "\n[The command completed with exit code 0.]"
+})**
+--BEGIN AGENT OBSERVATION--
+[design] 输出目录已就绪: /workspace/app-dysgncsaheyp/docs
+## 已命中模板
+**工程蓝图** [score=58.22] | written=true | dir=ready | no_read
+
+--- DESIGN.md 当前内容开始 ---
+# Theme Name: 工程蓝图
+# Vibe & Description: 凭借深蓝色块与纯白线条的强烈对比保障可读性与视觉冲击力，将技术注释、尺寸标注线等作为装饰元素，通过可见精确的网格系统严格对齐所有元素并明确展示 UI “骨架”，以功能性与清晰度彰显美感。
+
+# Color
+- 基底色：工程深蓝（#0D47A1）——象征稳定与可靠 （禁止将该颜色大面积用户背景色，仅允许在小色块中出现）
+- 线条色：纯白（#FFFFFF）或者网格青蓝（#2962FF），通过不透明度变化区分层级
+    * 内容：100%
+    * 网格：30%
+- 破坏色：安全橙（#FF5722）或警示黄（#FFC107），用于 CTA，呼应施工安全配色
+
+
+# Font
+- Heading & Body: Source Han Mono SC (url: https://resource-static.cdn.bcebos.com/fonts/SourceHanMonoSC-Regular.woff2)
+# Animation
+## 元素动画
+- 悬停反馈即时、生硬，无缓动效果。
+- 元素交互时有“锁定到网格”的感觉。
+- 有打字机效果，文字逐字符出现。
+- 光标与指示器以稳定、机械的频率闪烁。
+## 动画实现
+- 项目中集成了 tailwindcss-intersect 插件，可以使用类似下述的方式来实现元素进入视口时的动画效果：
+opacity-0 intersect:opacity-100 transition duration-700
+- 同时可使用 motion/react 配合实现动画。
+
+# Layout
+- 采用模块化网格，页面通过可见的 1px 线条被划分为清晰的象限与区域。
+- 采用非对称平衡，元素可跨越网格线排列。内容多贴齐底部或角落，留出负空间用于“注释”和“尺寸标记”。
+
+# Elements
+- 鼠标触发十字准星；页面边缘带尺寸刻度。
+- 使用等宽小字标注区域（如 “FIG 1.1”、“SCALE 1:100”）。
+- 虚线用于次级信息或关联元素的连接。
+- UI 元素如同技术模块或 CAD 块，带有可见边框与角标。
+- 可用生图工具生成一些工程制图的图片作为插图
+--- DESIGN.md 当前内容结束 ---
+
+## Anti-Slop Rules
+- 禁大块纯色铺底，含 Hero/Banner/上传/操作/输入区；Primary/Accent 仅小面积焦点
+- 禁用圆角卡片/细描边/通用投影/左色条/渐变背景充当核心视觉签名
+- 核心视觉签名必须来自字体排版、纹理材质、图像处理、局部光影或图标语言
+- 禁 Emoji 图标、CSS 伪装 Logo、系统默认展示字体
+- 禁风格混搭；非灰阶色彩角色 ≤ 4；禁循环装饰动效
+[The command completed with exit code 0.]
+[Current working directory: /workspace]
+--END AGENT OBSERVATION--
+</observation>
+<action>
+TodoAction(todos=[TodoItem(id='1', status='in_progress', priority=None, content='探索项目结构并搭建设计系统(index.css/tailwind/字体)', details='', group=None, agent_name=None), TodoItem(id='2', status='pending', priority=None, content='实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧)', details='DCT扩频嵌入、XOR流加密、CRC校验、payload编解码', group=None, agent_name=None), TodoItem(id='3', status='pending', priority=None, content='实现攻击模拟算法库(格式转换/裁剪/噪声/压缩/旋转缩放)', details='', group=None, agent_name=None), TodoItem(id='4', status='pending', priority=None, content='搭建布局与路由(侧边栏+三页面)', details='', group=None, agent_name=None), TodoItem(id='5', status='pending', priority=None, content='实现水印嵌入页面', details='', group=None, agent_name=None), TodoItem(id='6', status='pending', priority=None, content='实现水印提取页面', details='', group=None, agent_name=None), TodoItem(id='7', status='pending', priority=None, content='实现攻击模拟页面', details='', group=None, agent_name=None), TodoItem(id='8', status='pending', priority=None, content='lint校验并修复问题', details='', group=None, agent_name=None)], command='create', thought='模板已确定采用工程蓝图风格，现在我将规划任务并检查项目结构。', action=<ActionType.TODO: 'todo'>, content='')
+</action>
+<observation>
+TodoObservation(content='<system-reminder>\nYour todo list has changed. Here are the latest contents of your todo list:\n\n1. 探索项目结构并搭建设计系统(index.css/tailwind/字体) [in_progress]\n2. 实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧) [pending]\n  DCT扩频嵌入、XOR流加密、CRC校验、payload编解码\n3. 实现攻击模拟算法库(格式转换/裁剪/噪声/压缩/旋转缩放) [pending]\n4. 搭建布局与路由(侧边栏+三页面) [pending]\n5. 实现水印嵌入页面 [pending]\n6. 实现水印提取页面 [pending]\n7. 实现攻击模拟页面 [pending]\n8. lint校验并修复问题 [pending]\n</system-reminder>', state=TodoState(items=[TodoItem(id='1', status='in_progress', priority=None, content='探索项目结构并搭建设计系统(index.css/tailwind/字体)', details='', group=None, agent_name=None), TodoItem(id='2', status='pending', priority=None, content='实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧)', details='DCT扩频嵌入、XOR流加密、CRC校验、payload编解码', group=None, agent_name=None), TodoItem(id='3', status='pending', priority=None, content='实现攻击模拟算法库(格式转换/裁剪/噪声/压缩/旋转缩放)', details='', group=None, agent_name=None), TodoItem(id='4', status='pending', priority=None, content='搭建布局与路由(侧边栏+三页面)', details='', group=None, agent_name=None), TodoItem(id='5', status='pending', priority=None, content='实现水印嵌入页面', details='', group=None, agent_name=None), TodoItem(id='6', status='pending', priority=None, content='实现水印提取页面', details='', group=None, agent_name=None), TodoItem(id='7', status='pending', priority=None, content='实现攻击模拟页面', details='', group=None, agent_name=None), TodoItem(id='8', status='pending', priority=None, content='lint校验并修复问题', details='', group=None, agent_name=None)], updated_at='2026-08-25T21:26:44.146473+00:00'), system_reminder='', observation=<ObservationType.TODO: 'todo'>)
+</observation>
+<action>
+**CmdRunAction (source=EventSource.AGENT, is_input=False)**
+COMMAND:
+cd /workspace/app-dysgncsaheyp && ls -la && ls src && cat package.json | head -50
+</action>
+<observation>
+**CmdOutputObservation (source=EventSource.AGENT, exit code=0, metadata={
+  "exit_code": 0,
+  "pid": -1,
+  "username": null,
+  "hostname": null,
+  "working_dir": "/workspace/app-dysgncsaheyp",
+  "py_interpreter_path": null,
+  "prefix": "",
+  "suffix": "\n[The command completed with exit code 0.]"
+})**
+--BEGIN AGENT OBSERVATION--
+total 108
+drwxr-xr-x  10 root root 4096 Aug 26 05:26 .
+drwxrwsrwx   8 root root 4096 Aug 26 05:26 ..
+-rw-r--r--   1 root root  899 Aug 25 11:04 biome.json
+-rw-r--r--   1 root root  442 Aug 25 11:04 components.json
+drwxr-sr-x   2 root root 4096 Aug 26 05:26 docs
+-rw-r--r--   1 root root   29 Aug 26 05:26 .env
+drwxr-xr-x   8 root root 4096 Aug 26 05:26 .git
+-rw-r--r--   1 root root  363 Aug 25 11:04 .gitignore
+-rw-r--r--   1 root root  335 Aug 25 11:04 index.html
+drwxr-xr-x   4 root root 4096 Aug 26 05:26 node_modules
+-rw-r--r--   1 root root 3327 Aug 26 05:26 package.json
+-rw-r--r--   1 root root  241 Aug 26 05:26 pnpm-workspace.yaml
+-rw-r--r--   1 root root   81 Aug 25 11:04 postcss.config.js
+drwxr-xr-x   3 root root 4096 Aug 25 11:04 public
+-rw-r--r--   1 root root 3504 Aug 25 11:04 README.md
+drwxr-xr-x   2 root root 4096 Aug 25 11:04 .rules
+-rw-r--r--   1 root root   74 Aug 25 11:04 sgconfig.yml
+drwxr-xr-x 128 root root 4096 Aug 26 05:24 .skills
+drwxr-xr-x   9 root root 4096 Aug 25 11:04 src
+-rw-r--r--   1 root root 6599 Aug 25 11:04 tailwind.config.js
+drwxr-sr-x   2 root root 4096 Aug 26 05:24 tasks
+-rw-r--r--   1 root root  834 Aug 25 11:04 tsconfig.app.json
+-rw-r--r--   1 root root  452 Aug 25 11:04 tsconfig.check.json
+-rw-r--r--   1 root root  370 Aug 25 11:04 tsconfig.json
+-rw-r--r--   1 root root  593 Aug 25 11:04 tsconfig.node.json
+-rw-r--r--   1 root root  590 Aug 25 11:04 vite.config.ts
+App.tsx
+components
+contexts
+global.d.ts
+hooks
+index.css
+lib
+main.tsx
+pages
+routes.tsx
+services
+svg.d.ts
+types
+vite-env.d.ts
+{
+  "name": "miaoda-react-admin",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'Do not use this command, only use lint to check'",
+    "build": "echo 'Do not use this command, only use lint to check'",
+    "lint": "tsgo -p tsconfig.check.json; npx biome lint; .rules/check.sh;npx tailwindcss -i ./src/index.css -o /dev/null 2>&1 | grep -E '^(CssSyntaxError|Error):.*' || true;.rules/testBuild.sh"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-alert-dialog": "^1.1.15",
+    "@radix-ui/react-aspect-ratio": "^1.1.7",
+    "@radix-ui/react-avatar": "^1.1.10",
+    "@radix-ui/react-checkbox": "^1.3.3",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-context-menu": "^2.2.16",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-hover-card": "^1.1.15",
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-menubar": "^1.1.16",
+    "@radix-ui/react-navigation-menu": "^1.2.14",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-progress": "^1.1.7",
+    "@radix-ui/react-radio-group": "^1.3.8",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slider": "^1.3.6",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-toast": "^1.2.15",
+    "@radix-ui/react-toggle": "^1.1.10",
+    "@radix-ui/react-toggle-group": "^1.1.11",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@sentry/react": "^9.47.1",
+    "@supabase/supabase-js": "2.103.1",
+    "axios": "^1.13.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "date-fns": "^3.6.0",
+    "embla-carousel-react": "^8.6.0",
+    "eventsource-parser": "^3.0.6",
+    "input-otp": "^1.4.2",
+    "ky": "^1.13.0",
+[The command completed with exit code 0.]
+[Current working directory: /workspace/app-dysgncsaheyp]
+--END AGENT OBSERVATION--
+</observation>
+<action>
+**CmdRunAction (source=EventSource.AGENT, is_input=False)**
+COMMAND:
+cd /workspace/app-dysgncsaheyp && cat src/index.css && cat tailwind.config.js && cat src/routes.tsx && cat src/App.tsx && ls src/components/ui | head -60 && ls src/pages src/components src/lib
+</action>
+<observation>
+**CmdOutputObservation (source=EventSource.AGENT, exit code=0, metadata={
+  "exit_code": 0,
+  "pid": -1,
+  "username": null,
+  "hostname": null,
+  "working_dir": "/workspace/app-dysgncsaheyp",
+  "py_interpreter_path": null,
+  "prefix": "",
+  "suffix": "\n[The command completed with exit code 0.]"
+})**
+--BEGIN AGENT OBSERVATION--
+/* stylelint-disable */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 210 40% 98%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive-foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+import tailwindAnimate from 'tailwindcss-animate';
+import containerQuery from '@tailwindcss/container-queries';
+import intersect from 'tailwindcss-intersect';
+
+export default {
+    darkMode: ['class'],
+    content: [
+        './index.html',
+        './pages/**/*.{ts,tsx}',
+        './components/**/*.{ts,tsx}',
+        './app/**/*.{ts,tsx}',
+        './src/**/*.{ts,tsx}',
+        './node_modules/streamdown/dist/**/*.js'
+    ],
+    safelist: ['border', 'border-border'],
+    prefix: '',
+    theme: {
+        container: {
+            center: true,
+            padding: '2rem',
+            screens: {
+                '2xl': '1400px'
+            }
+        },
+        extend: {
+            colors: {
+                border: 'hsl(var(--border))',
+                borderColor: {
+                    border: 'hsl(var(--border))'
+                },
+                input: 'hsl(var(--input))',
+                ring: 'hsl(var(--ring))',
+                background: 'hsl(var(--background))',
+                foreground: 'hsl(var(--foreground))',
+                primary: {
+                    DEFAULT: 'hsl(var(--primary))',
+                    foreground: 'hsl(var(--primary-foreground))'
+                },
+                secondary: {
+                    DEFAULT: 'hsl(var(--secondary))',
+                    foreground: 'hsl(var(--secondary-foreground))'
+                },
+                destructive: {
+                    DEFAULT: 'hsl(var(--destructive))',
+                    foreground: 'hsl(var(--destructive-foreground))'
+                },
+                muted: {
+                    DEFAULT: 'hsl(var(--muted))',
+                    foreground: 'hsl(var(--muted-foreground))'
+                },
+                accent: {
+                    DEFAULT: 'hsl(var(--accent))',
+                    foreground: 'hsl(var(--accent-foreground))'
+                },
+                popover: {
+                    DEFAULT: 'hsl(var(--popover))',
+                    foreground: 'hsl(var(--popover-foreground))'
+                },
+                card: {
+                    DEFAULT: 'hsl(var(--card))',
+                    foreground: 'hsl(var(--card-foreground))'
+                },
+                education: {
+                    blue: 'hsl(var(--education-blue))',
+                    green: 'hsl(var(--education-green))'
+                },
+                success: 'hsl(var(--success))',
+                warning: 'hsl(var(--warning))',
+                info: 'hsl(var(--info))',
+                sidebar: {
+                    DEFAULT: 'hsl(var(--sidebar-background))',
+                    background: 'hsl(var(--sidebar-background))',
+                    foreground: 'hsl(var(--sidebar-foreground))',
+                    primary: 'hsl(var(--sidebar-primary))',
+                    'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+                    accent: 'hsl(var(--sidebar-accent))',
+                    'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+                    border: 'hsl(var(--sidebar-border))',
+                    ring: 'hsl(var(--sidebar-ring))'
+                },
+                chart: {
+                    '1': 'hsl(var(--chart-1))',
+                    '2': 'hsl(var(--chart-2))',
+                    '3': 'hsl(var(--chart-3))',
+                    '4': 'hsl(var(--chart-4))',
+                    '5': 'hsl(var(--chart-5))'
+                }
+            },
+            borderRadius: {
+                lg: 'var(--radius)',
+                md: 'calc(var(--radius) - 2px)',
+                sm: 'calc(var(--radius) - 4px)'
+            },
+            backgroundImage: {
+                'gradient-primary': 'var(--gradient-primary)',
+                'gradient-card': 'var(--gradient-card)',
+                'gradient-background': 'var(--gradient-background)'
+            },
+            boxShadow: {
+                card: 'var(--shadow-card)',
+                hover: 'var(--shadow-hover)'
+            },
+            keyframes: {
+                'accordion-down': {
+                    from: {
+                        height: '0'
+                    },
+                    to: {
+                        height: 'var(--radix-accordion-content-height)'
+                    }
+                },
+                'accordion-up': {
+                    from: {
+                        height: 'var(--radix-accordion-content-height)'
+                    },
+                    to: {
+                        height: '0'
+                    }
+                },
+                'fade-in': {
+                    from: {
+                        opacity: '0',
+                        transform: 'translateY(10px)'
+                    },
+                    to: {
+                        opacity: '1',
+                        transform: 'translateY(0)'
+                    }
+                },
+                'slide-in': {
+                    from: {
+                        opacity: '0',
+                        transform: 'translateX(-20px)'
+                    },
+                    to: {
+                        opacity: '1',
+                        transform: 'translateX(0)'
+                    }
+                }
+            },
+            animation: {
+                'accordion-down': 'accordion-down 0.2s ease-out',
+                'accordion-up': 'accordion-up 0.2s ease-out',
+                'fade-in': 'fade-in 0.5s ease-out forwards',
+                'slide-in': 'slide-in 0.5s ease-out forwards'
+            }
+        }
+    },
+    plugins: [
+        tailwindAnimate,
+        containerQuery,
+        intersect,
+        function ({addUtilities}) {
+            addUtilities(
+                {
+                    '.border-t-solid': {'border-top-style': 'solid'},
+                    '.border-r-solid': {'border-right-style': 'solid'},
+                    '.border-b-solid': {'border-bottom-style': 'solid'},
+                    '.border-l-solid': {'border-left-style': 'solid'},
+                    '.border-t-dashed': {'border-top-style': 'dashed'},
+                    '.border-r-dashed': {'border-right-style': 'dashed'},
+                    '.border-b-dashed': {'border-bottom-style': 'dashed'},
+                    '.border-l-dashed': {'border-left-style': 'dashed'},
+                    '.border-t-dotted': {'border-top-style': 'dotted'},
+                    '.border-r-dotted': {'border-right-style': 'dotted'},
+                    '.border-b-dotted': {'border-bottom-style': 'dotted'},
+                    '.border-l-dotted': {'border-left-style': 'dotted'},
+                },
+                ['responsive']
+            );
+        },
+    ],
+};
+import SamplePage from './pages/SamplePage';
+import type { ReactNode } from 'react';
+
+export interface RouteConfig {
+  name: string;
+  path: string;
+  element: ReactNode;
+  visible?: boolean;
+  /** Accessible without login. Routes without this flag require authentication. Has no effect when RouteGuard is not in use. */
+  public?: boolean;
+}
+
+export const routes: RouteConfig[] = [
+  {
+    name: 'Sample Page',
+    path: '/',
+    element: <SamplePage />,
+    public: true,
+  }
+];
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import IntersectObserver from '@/components/common/IntersectObserver';
+import { Toaster } from '@/components/ui/sonner';
+
+import { routes } from './routes';
+
+// import { AuthProvider } from '@/contexts/AuthContext';
+// import { RouteGuard } from '@/components/common/RouteGuard';
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      {/*<AuthProvider>*/}
+      {/*<RouteGuard>*/}
+      <IntersectObserver />
+      <div className="flex flex-col min-h-screen">
+        {/*<Header />*/}
+        <main className="flex-grow">
+          <Routes>
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={route.element}
+            />
+          ))}
+          <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+      </div>
+      <Toaster />
+      {/*</RouteGuard>*/}
+      {/*</AuthProvider>*/}
+    </Router>
+  );
+};
+
+export default App;
+accordion.tsx
+alert-dialog.tsx
+alert.tsx
+aspect-ratio.tsx
+avatar.tsx
+badge.tsx
+breadcrumb.tsx
+button.tsx
+calendar.tsx
+card.tsx
+carousel.tsx
+chart.tsx
+checkbox.tsx
+collapsible.tsx
+command.tsx
+context-menu.tsx
+dialog.tsx
+drawer.tsx
+dropdown-menu.tsx
+form.tsx
+hover-card.tsx
+input-otp.tsx
+input.tsx
+kbd.tsx
+label.tsx
+menubar.tsx
+multi-select.tsx
+navigation-menu.tsx
+pagination.tsx
+popover.tsx
+progress.tsx
+qrcodedataurl.tsx
+radio-group.tsx
+resizable.tsx
+scroll-area.tsx
+select.tsx
+separator.tsx
+sheet.tsx
+sidebar.tsx
+skeleton.tsx
+slider.tsx
+sonner.tsx
+switch.tsx
+table.tsx
+tabs.tsx
+textarea.tsx
+toggle-group.tsx
+toggle.tsx
+tooltip.tsx
+video.css
+video.tsx
+src/components:
+common
+dropzone.tsx
+ui
+
+src/lib:
+utils.ts
+
+src/pages:
+NotFound.tsx
+SamplePage.tsx
+[The command completed with exit code 0.]
+[Current working directory: /workspace/app-dysgncsaheyp]
+--END AGENT OBSERVATION--
+</observation>
+<action>
+TodoAction(todos=[TodoItem(id='1', status='completed', priority=None, content='探索项目结构并搭建设计系统(index.css/tailwind/字体)', details='', group=None, agent_name=None), TodoItem(id='2', status='completed', priority=None, content='实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧)', details='', group=None, agent_name=None), TodoItem(id='3', status='in_progress', priority=None, content='实现攻击模拟算法库与媒体工具库(格式转换/裁剪/噪声/压缩/旋转缩放)', details='', group=None, agent_name=None), TodoItem(id='4', status='pending', priority=None, content='搭建布局与路由(侧边栏+三页面)', details='', group=None, agent_name=None), TodoItem(id='5', status='pending', priority=None, content='实现水印嵌入页面', details='', group=None, agent_name=None), TodoItem(id='6', status='pending', priority=None, content='实现水印提取页面', details='', group=None, agent_name=None), TodoItem(id='7', status='pending', priority=None, content='实现攻击模拟页面', details='', group=None, agent_name=None), TodoItem(id='8', status='pending', priority=None, content='lint校验并修复问题', details='', group=None, agent_name=None)], command='update', thought='', action=<ActionType.TODO: 'todo'>, content='')
+</action>
+<observation>
+TodoObservation(content='<system-reminder>\nYour todo list has changed. Here are the latest contents of your todo list:\n\n1. 探索项目结构并搭建设计系统(index.css/tailwind/字体) [completed]\n2. 实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧) [completed]\n3. 实现攻击模拟算法库与媒体工具库(格式转换/裁剪/噪声/压缩/旋转缩放) [in_progress]\n4. 搭建布局与路由(侧边栏+三页面) [pending]\n5. 实现水印嵌入页面 [pending]\n6. 实现水印提取页面 [pending]\n7. 实现攻击模拟页面 [pending]\n8. lint校验并修复问题 [pending]\n</system-reminder>', state=TodoState(items=[TodoItem(id='1', status='completed', priority=None, content='探索项目结构并搭建设计系统(index.css/tailwind/字体)', details='', group=None, agent_name=None), TodoItem(id='2', status='completed', priority=None, content='实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧)', details='', group=None, agent_name=None), TodoItem(id='3', status='in_progress', priority=None, content='实现攻击模拟算法库与媒体工具库(格式转换/裁剪/噪声/压缩/旋转缩放)', details='', group=None, agent_name=None), TodoItem(id='4', status='pending', priority=None, content='搭建布局与路由(侧边栏+三页面)', details='', group=None, agent_name=None), TodoItem(id='5', status='pending', priority=None, content='实现水印嵌入页面', details='', group=None, agent_name=None), TodoItem(id='6', status='pending', priority=None, content='实现水印提取页面', details='', group=None, agent_name=None), TodoItem(id='7', status='pending', priority=None, content='实现攻击模拟页面', details='', group=None, agent_name=None), TodoItem(id='8', status='pending', priority=None, content='lint校验并修复问题', details='', group=None, agent_name=None)], updated_at='2026-08-25T21:30:27.455940+00:00'), system_reminder='', observation=<ObservationType.TODO: 'todo'>)
+</observation>
+<action>
+TodoAction(todos=[TodoItem(id='3', status='completed', priority=None, content='实现攻击模拟算法库与媒体工具库(格式转换/裁剪/噪声/压缩/旋转缩放)', details='', group=None, agent_name=None), TodoItem(id='4', status='in_progress', priority=None, content='搭建布局与路由(侧边栏+三页面)', details='', group=None, agent_name=None)], command='update', thought='核心库完成。现在搭建布局与通用组件。', action=<ActionType.TODO: 'todo'>, content='')
+</action>
+<observation>
+TodoObservation(content='<system-reminder>\nYour todo list has changed. Here are the latest contents of your todo list:\n\n1. 探索项目结构并搭建设计系统(index.css/tailwind/字体) [completed]\n2. 实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧) [completed]\n3. 实现攻击模拟算法库与媒体工具库(格式转换/裁剪/噪声/压缩/旋转缩放) [completed]\n4. 搭建布局与路由(侧边栏+三页面) [in_progress]\n5. 实现水印嵌入页面 [pending]\n6. 实现水印提取页面 [pending]\n7. 实现攻击模拟页面 [pending]\n8. lint校验并修复问题 [pending]\n</system-reminder>', state=TodoState(items=[TodoItem(id='1', status='completed', priority=None, content='探索项目结构并搭建设计系统(index.css/tailwind/字体)', details='', group=None, agent_name=None), TodoItem(id='2', status='completed', priority=None, content='实现水印核心算法库(bits/crypto/codec/图片DCT/音频PCM/视频帧)', details='', group=None, agent_name=None), TodoItem(id='3', status='completed', priority=None, content='实现攻击模拟算法库与媒体工具库(格式转换/裁剪/噪声/压缩/旋转缩放)', details='', group=None, agent_name=None), TodoItem(id='4', status='in_progress', priority=None, content='搭建布局与路由(侧边栏+三页面)', details='', group=None, agent_name=None), TodoItem(id='5', status='pending', priority=None, content='实现水印嵌入页面', details='', group=None, agent_name=None), TodoItem(id='6', status='pending', priority=None, content='实现水印提取页面', details='', group=None, agent_name=None), TodoItem(id='7', status='pending', priority=None, content='实现攻击模拟页面', details='', group=None, agent_name=None), TodoItem(id='8', status='pending', priority=None, content='lint校验并修复问题', details='', group=None, agent_name=None)], updated_at='2026-08-25T21:31:22.622189+00:00'), system_reminder='', observation=<ObservationType.TODO: 'todo'>)
+</observation>
