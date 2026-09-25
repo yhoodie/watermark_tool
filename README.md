@@ -4,7 +4,7 @@
 # 你可能想了解的
 ## 这是什么  
 ### 界面预览
-<https://www.miaoda.cn/projects/app-dysgncsaheyp/preview>
+<https://app-dysgncsaheyp.appmiaoda.com/embed>
 ### 项目简介   
 这是一个数字水印嵌入和提取工具，可对图像、音频、视频三种载体批量嵌入文字、图像、音频、视频四种类型的水印，上传载体后会显示当前载体的最小水印容量，超过可嵌入水印大小将会截断水印。水印可调强度
 ### 项目结构
